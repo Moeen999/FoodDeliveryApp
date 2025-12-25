@@ -53,3 +53,15 @@
 }
 
 
+/* ! Media Queries */
+
+@media (max-width: 750px) {
+  .footer-content{
+    display: flex;
+    flex-direction: column;
+  }
+  .footer-copyright{
+    text-align: center;
+  }
+}
+
