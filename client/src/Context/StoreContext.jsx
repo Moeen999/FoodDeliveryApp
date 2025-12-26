@@ -15,9 +15,8 @@ const ContextProvider = (props) => {
   const removeFromCart = (itemID) => {
     setCartItems((prev) => ({ ...prev, [itemID]: prev[itemID] - 1 }));
   };
-  useEffect(()=>{
-    console.log(cartItems);
-  },[cartItems])
+  // useEffect(()=>{
+  // },[cartItems])
   const contextValues = {
     food_list,
     cartItems,
