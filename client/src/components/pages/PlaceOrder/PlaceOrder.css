@@ -39,3 +39,12 @@
 .place-order-right .cart-total-button {
   margin-top: 50px;
 }
+
+
+/* ! Media Queries */
+
+@media (max-width: 768px) {
+  .place-order{
+    flex-direction: column;
+  }
+}
