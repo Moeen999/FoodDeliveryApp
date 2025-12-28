@@ -40,6 +40,8 @@ const Add = () => {
       });
       setImage(false);
       toast.success(res.data.message);
+    }else{
+      toast.error(res.data.message);
     }
     } catch (error) {
       console.log(error);
