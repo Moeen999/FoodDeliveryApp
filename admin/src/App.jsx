@@ -1,10 +1,16 @@
+import Navbar from "./components/Navbar/Navbar";
+import Sidebar from "./components/Sidebar/Sidebar";
 
 const App = () => {
   return (
     <div>
-      Admin Panel
+      <Navbar />
+      <hr />
+      <div className="app-content">
+        <Sidebar />
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
