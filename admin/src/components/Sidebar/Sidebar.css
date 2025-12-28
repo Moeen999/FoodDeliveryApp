@@ -25,6 +25,10 @@
   cursor: pointer;
 }
 
+.sidebar-option.active{
+  background-color: #fff0ed;
+  border-color: tomato;
+}
 
 /* ! Media Queries */
 
