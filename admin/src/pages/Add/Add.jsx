@@ -2,6 +2,7 @@ import "./Add.css";
 import { assets } from "../../assets/assets";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const Add = () => {
   const url = "http://localhost:4000";
@@ -28,7 +29,8 @@ const Add = () => {
     formData.append("image", image);
 
     // ! Endpoint hit
-    const res = await axios.post(`${url}/api/food/add`, formData);
+    try {
+      const res = await axios.post(`${url}/api/food/add`, formData);
     if (res?.data) {
       setData({
         name: "",
@@ -37,8 +39,10 @@ const Add = () => {
         category: "Salad",
       });
       setImage(false);
-    } else {
-      console.log("L py charh gaya sab kuch");
+      toast.success(res.data.message);
+    }
+    } catch (error) {
+      console.log(error);
     }
   };
 
