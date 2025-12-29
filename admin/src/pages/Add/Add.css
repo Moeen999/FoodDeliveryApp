@@ -42,3 +42,9 @@
     color: white;
     cursor: pointer;
 }
+
+@media (max-width: 768px) {
+  .add-category-price{
+    gap: 15px;
+  }
+}
