@@ -7,6 +7,7 @@ import { StoreContext } from "../../Context/StoreContext";
 const Navbar = ({ setShowLogin }) => {
   const [isActive, setIsActive] = useState("home");
   const { getTotalCartAmount } = useContext(StoreContext);
+
   return (
     <div className="navbar">
       <Link to="/">

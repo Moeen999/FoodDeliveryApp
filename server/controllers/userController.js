@@ -64,7 +64,7 @@ const loginUser = async (req, res) => {
 
     // ! Authenticate the user
     const token = genToken(user._id);
-    res.json({ success: true, message: "User loggen In Successfully", token });
+    res.json({ success: true, message: "User logged In Successfully", token });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error Occured!" });
