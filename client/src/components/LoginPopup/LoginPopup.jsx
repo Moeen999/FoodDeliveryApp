@@ -17,8 +17,6 @@ const LoginPopup = ({ setShowLogin }) => {
     setData((prevData) => ({ ...prevData, [name]: value }));
   };
 
-
-
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     let fullURL = import.meta.env.VITE_SERVER_URL;
@@ -30,10 +28,8 @@ const LoginPopup = ({ setShowLogin }) => {
     try {
       const res = await axios.post(fullURL, data);
       if (res.data.success) {
-        console.log(res.data.token);
         setToken(res.data.token);
         localStorage.setItem("token", res.data.token);
-        console.log(res.data.message);
         toast.success(res.data.message);
         setShowLogin(false);
       } else {
