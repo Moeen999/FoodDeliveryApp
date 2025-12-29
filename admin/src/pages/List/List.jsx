@@ -4,8 +4,8 @@ import { toast } from "react-toastify";
 import "./List.css";
 
 const List = () => {
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
   const [foodData, setFoodData] = useState([]);
-  const SERVER_URL = "http://localhost:4000";
   const fetchFoodItemsData = async () => {
     try {
       const res = await axios.get(`${SERVER_URL}/api/food/list`);
@@ -26,7 +26,6 @@ const List = () => {
       setFoodData(res.data.data);
       toast.success(res.data.message);
       fetchFoodItemsData();
-      
     } catch (error) {
       console.log(error);
     }
