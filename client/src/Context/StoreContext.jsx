@@ -33,7 +33,7 @@ const ContextProvider = (props) => {
         { itemID },
         { headers: { token } }
       );
-    }else{
+    } else {
       return toast.error("Please login to add the items");
     }
   };
@@ -60,12 +60,26 @@ const ContextProvider = (props) => {
     }
   };
 
+  const loadCartData = async (token) => {
+    try {
+      const res = await axios.post(
+        `${SERVER_URL}/api/cart/get`,
+        {},
+        { headers: { token } }
+      );
+      setCartItems(res.data.cartData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     async function loadData() {
       await foodListData();
       const token = localStorage.getItem("token");
       if (token) {
         setToken(token);
+        await loadCartData(token);
       }
     }
     loadData();
