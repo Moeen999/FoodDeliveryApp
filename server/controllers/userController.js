@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import validator from "validator";
 
 const genToken = (userId) => {
-  return jwt.sign({ userId }, process.env.JWT_SECRET);
+  return jwt.sign({id: userId }, process.env.JWT_SECRET);
 };
 const registerUser = async (req, res) => {
   const { name, email, password } = req.body;
