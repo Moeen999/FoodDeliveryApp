@@ -3,13 +3,13 @@ import userModel from "../models/userModel.js";
 // Add item to cart
 const addToCart = async (req, res) => {
   try {
-    const userId = req.userId; 
-    const { itemId } = req.body;
+    const userId = req.userId;
+    const { itemID } = req.body;
 
     const userData = await userModel.findById(userId);
     let cartData = userData.cartData || {};
 
-    cartData[itemId] = cartData[itemId] ? cartData[itemId] + 1 : 1;
+    cartData[itemID] = cartData[itemID] ? cartData[itemID] + 1 : 1;
 
     await userModel.findByIdAndUpdate(userId, { cartData });
 
@@ -24,13 +24,12 @@ const addToCart = async (req, res) => {
 const removeFromCart = async (req, res) => {
   try {
     const userId = req.userId; 
-    const { itemId } = req.body;
-
+    const { itemID } = req.body;
     const userData = await userModel.findById(userId);
     let cartData = userData.cartData || {};
 
-    if (cartData[itemId] && cartData[itemId] > 0) {
-      cartData[itemId] -= 1;
+    if (cartData[itemID] && cartData[itemID] > 0) {
+      cartData[itemID] -= 1;
     }
 
     await userModel.findByIdAndUpdate(userId, { cartData });

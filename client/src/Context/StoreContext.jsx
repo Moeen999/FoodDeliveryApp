@@ -1,6 +1,6 @@
 import { createContext, useEffect, useState } from "react";
-import { food_list } from "../assets/assets";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 export const StoreContext = createContext(null);
 
@@ -8,15 +8,34 @@ const ContextProvider = (props) => {
   const [cartItems, setCartItems] = useState({});
   const [food_list, setFoodListData] = useState([]);
   const [token, setToken] = useState("");
-  const addToCart = (itemID) => {
+  const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+  const addToCart = async (itemID) => {
+    if (token) {
+      await axios.post(
+        `${SERVER_URL}/api/cart/add`,
+        { itemID },
+        { headers: { token } }
+      );
+    } else {
+      return toast.error("Please login to add the items");
+    }
     if (!cartItems[itemID]) {
       setCartItems((prev) => ({ ...prev, [itemID]: 1 }));
     } else {
       setCartItems((prev) => ({ ...prev, [itemID]: prev[itemID] + 1 }));
     }
   };
-  const removeFromCart = (itemID) => {
+  const removeFromCart = async (itemID) => {
     setCartItems((prev) => ({ ...prev, [itemID]: prev[itemID] - 1 }));
+    if (token) {
+      await axios.post(
+        `${SERVER_URL}/api/cart/remove`,
+        { itemID },
+        { headers: { token } }
+      );
+    }else{
+      return toast.error("Please login to add the items");
+    }
   };
   const getTotalCartAmount = () => {
     let totAmount = 0;
