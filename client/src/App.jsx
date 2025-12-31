@@ -7,6 +7,7 @@ import Footer from "./components/Footer/Footer";
 import { useState } from "react";
 import LoginPopup from "./components/LoginPopup/LoginPopup";
 import {ToastContainer} from "react-toastify"
+import Verify from "./components/pages/Verify/Verify";
 
 const App = () => {
   const [showLogin, setShowLogin] = useState(false);
@@ -20,6 +21,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/order" element={<PlaceOrder />} />
+          <Route path="/verify" element={<Verify />} />
         </Routes>
       </div>
       <Footer />

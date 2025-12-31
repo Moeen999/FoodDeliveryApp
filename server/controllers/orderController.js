@@ -53,8 +53,24 @@ const placeOrder = async (req, res) => {
     res.json({ success: true, session_url: session.url });
   } catch (error) {
     console.log(error);
-    res.json({success:false,message:"Error Occured"});
+    res.json({ success: false, message: "Error Occured" });
   }
 };
 
-export { placeOrder };
+const verifyOrder = async (req, res) => {
+  const { success, orderId } = req.body;
+  try {
+    if (success == "true") {
+      await orderModel.findByIdAndUpdate(orderId, { payment: true });
+      res.json({ success: true, message: "Paid" });
+    } else {
+      await orderModel.findByIdAndDelete(orderId);
+      res.json({ success: false, message: "Not Paid" });
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: "Error Occured" });
+  }
+};
+
+export { placeOrder, verifyOrder };
