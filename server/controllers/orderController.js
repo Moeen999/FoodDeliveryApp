@@ -56,6 +56,7 @@ const placeOrder = async (req, res) => {
     res.json({ success: false, message: "Error Occured" });
   }
 };
+// ! verify order controller
 
 const verifyOrder = async (req, res) => {
   const { success, orderId } = req.body;
@@ -73,4 +74,15 @@ const verifyOrder = async (req, res) => {
   }
 };
 
-export { placeOrder, verifyOrder };
+// ! get all users orders
+const getUserOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ userId: req.userId });
+    res.json({ success: true, data: orders });
+  } catch (error) {
+    console.log(error);
+    res.json()
+  }
+};
+
+export { placeOrder, verifyOrder, getUserOrders };
