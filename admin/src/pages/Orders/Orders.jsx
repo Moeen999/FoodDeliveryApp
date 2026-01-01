@@ -1,37 +1,36 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./Orders.css";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
 import { assets } from "../../assets/assets";
 
 const Orders = () => {
-  const [userOrders, setUserOrders] = useState([]);
-  const fetchAllOrders = async () => {
-    try {
-      const res = await axios.get(
-        `${import.meta.env.VITE_SERVER_URL}/api/order/orders`
-      );
-      setUserOrders(res.data.data);
-      toast.success("Orders fetched successfully!");
-    } catch (error) {
-      console.log(error);
+  const [orders, setOrders] = useState([]);
+
+  const getAllOrders = async () => {
+    const res = await axios.get(
+      `${import.meta.env.VITE_SERVER_URL}/api/order/orders`
+    );
+    if (res.data.success) {
+      setOrders(res.data.data);
+    } else {
+      toast.error("Error fetching orders!");
     }
   };
 
   useEffect(() => {
-    fetchAllOrders();
+    getAllOrders();
   }, []);
 
   return (
-    <div className="myOrders">
-      <h2>My Orders</h2>
-      <div className="ordersContainer">
-        {userOrders.map((order, index) => {
-          return (
-            <div className="myOrdersOrder">
-              <img src={assets.parcel_icon} alt="" />
-              <p>
+    <div className="order add">
+      <h3>Order Page</h3>
+      <div className="orderList">
+        {orders.map((order, index) => (
+          <div key={index} className="orderItem">
+            <img src={assets.parcel_icon} alt="" />
+            <div>
+              <p className="orderItemFood">
                 {order.items.map((item, index) => {
                   if (index === order.items.length - 1) {
                     return item.name + " x " + item.quantity;
@@ -40,16 +39,32 @@ const Orders = () => {
                   }
                 })}
               </p>
-              <p>${order.amount}.00</p>
-              <p>Items: {order.items.length}</p>
-              <p>
-                <span>&#x25cf;</span>
-                <b>{order.status}</b>
+              <p className="orderItemName">
+                {order.address.firstName + " " + order.address.lastName}
               </p>
-              <button>Track Order</button>
+              <div className="orderItemAddress">
+                <p>{order.address.street + ", "}</p>
+                <p>
+                  {order.address.city +
+                    ", " +
+                    order.address.state +
+                    ", " +
+                    order.address.country +
+                    ", " +
+                    order.address.zipcode}
+                </p>
+              </div>
+              <p className="orderItemPhone">{order.address.phone}</p>
             </div>
-          );
-        })}
+            <p>Items: {order.items.length}</p>
+            <p>${order.amount}</p>
+            <select>
+              <option value="Food Processing">Food Processing</option>
+              <option value="Out for Delivery">Out for Delivery</option>
+              <option value="Delivered">Delivered</option>
+            </select>
+          </div>
+        ))}
       </div>
     </div>
   );
