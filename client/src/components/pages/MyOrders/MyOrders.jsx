@@ -25,14 +25,13 @@ const MyOrders = () => {
 
   useEffect(() => {
     if (token) fetchUsersOrder();
-  }, []);
+  }, [token]);
 
   return (
     <div className="myOrders">
       <h2>My Orders</h2>
       <div className="ordersContainer">
         {userOrders.map((order, index) => {
-          console.log("order,", order);
           return (
             <div className="myOrdersOrder">
               <img src={assets.parcel_icon} alt="" />
