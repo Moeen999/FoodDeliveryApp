@@ -74,7 +74,7 @@ const verifyOrder = async (req, res) => {
   }
 };
 
-// ! get all users orders
+// ! get a specific user's orders
 const getUserOrders = async (req, res) => {
   try {
     const orders = await orderModel.find({ userId: req.userId });
@@ -85,4 +85,13 @@ const getUserOrders = async (req, res) => {
   }
 };
 
-export { placeOrder, verifyOrder, getUserOrders };
+//! get all users order data
+const getAdminOrders = async(req,res)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}
+
+export { placeOrder, verifyOrder, getUserOrders, getAdminOrders };
