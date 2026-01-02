@@ -102,11 +102,21 @@ const updateDeliveryStatus = async (req, res) => {
   try {
     const { status } = req.body;
     await orderModel.findByIdAndUpdate(req.body.orderId, { status: status });
-    res.json({ success: true, message: "Status Updated Successfully!",status:status });
+    res.json({
+      success: true,
+      message: "Status Updated Successfully!",
+      status: status,
+    });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: "Error updating the status" });
   }
 };
 
-export { placeOrder, verifyOrder, getUserOrders, getAllOrders, updateDeliveryStatus };
+export {
+  placeOrder,
+  verifyOrder,
+  getUserOrders,
+  getAllOrders,
+  updateDeliveryStatus,
+};

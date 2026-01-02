@@ -18,6 +18,24 @@ const Orders = () => {
     }
   };
 
+  const handleStatusChange = async (e, orderId) => {
+    try {
+      const res = await axios.post(
+        `${import.meta.env.VITE_SERVER_URL}/api/order/status`,
+        {
+          orderId,
+          status: e.target.value,
+        }
+      );
+      if (res.data.success) {
+        await getAllOrders();
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("Error updating the status");
+    }
+  };
+
   useEffect(() => {
     getAllOrders();
   }, []);
@@ -58,7 +76,10 @@ const Orders = () => {
             </div>
             <p>Items: {order.items.length}</p>
             <p>${order.amount}</p>
-            <select>
+            <select
+              onChange={(e) => handleStatusChange(e, order._id)}
+              value={order.status}
+            >
               <option value="Food Processing">Food Processing</option>
               <option value="Out for Delivery">Out for Delivery</option>
               <option value="Delivered">Delivered</option>
